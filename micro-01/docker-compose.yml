@@ -29,6 +29,20 @@ services:
     networks:
       - microservices
 
+  # MYSQL MICRO 01
+  db_micro_01:
+    image: mysql:5.7.22
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+    volumes:
+      - ./.docker/mysql/dbdata:/var/lib/mysql
+    networks:
+      - microservices
+
 networks:
   microservices:
     driver: bridge
