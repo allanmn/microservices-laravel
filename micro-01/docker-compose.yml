@@ -1,6 +1,7 @@
 version: '3.7'
 
 services:
+  # IMAGE MICRO
   micro_01:
     build: 
       args:
@@ -12,3 +13,23 @@ services:
     restart: unless-stopped
     work_dir: /var/www/
     volumes: ./:/var/www
+    networks:
+      - microservices
+
+  # IMAGE NGINX
+  nginx:
+    image: nginx:alpine
+    restart: unless-stopped
+    ports:
+      - 8000:80
+      - 433:433
+    volumes:
+      - ./:/var/www
+      - ./docker/nginx/:/etc/nginx/conf.d/
+    networks:
+      - microservices
+
+networks:
+  microservices:
+    driver: bridge
+
