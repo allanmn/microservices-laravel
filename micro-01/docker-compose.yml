@@ -11,8 +11,9 @@ services:
       dockerfile: Dockerfile
     image: laravel-app
     restart: unless-stopped
-    work_dir: /var/www/
-    volumes: ./:/var/www
+    working_dir: /var/www/
+    volumes: 
+      - ./:/var/www
     networks:
       - microservices
 
@@ -40,6 +41,8 @@ services:
       MYSQL_USER: ${DB_USERNAME}
     volumes:
       - ./.docker/mysql/dbdata:/var/lib/mysql
+    ports:
+      - 3308:3306
     networks:
       - microservices
 
